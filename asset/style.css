@@ -3,3 +3,8 @@ header {
     background-color: aqua;
     text-align: center;
 }
+
+.wrapall {
+    border-style: dashed;
+    margin: 1%;
+}
