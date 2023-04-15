@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Weather forecast-5 daays</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="./asset/style.css">
 </head>
 
@@ -14,27 +15,27 @@
         <h1>Weather Dashboard</h1>
     </header>
     <main>
-        <div id="main-container" class="wrapall">
-            <div id="side-bar" class="wrapall">
-                <div id="search-div">
-                    <label for="search">Search for a City:</label>
-                    <input type="text" name="city-input" placeholder="Minneapolis">
-                    <button  id="search-btn">Search</button>
+        <div id="main-container" >
+            <div id="side-bar" class="wrapall " >
+                <div id="search-div ">
+                    <label id="search-heading" for="search">Search for a City:</label>
+                    <input type="text" name="city-input" placeholder="Minneapolis"aria-label="Username" aria-describedby="addon-wrapping">
+                    <button id="search-btn" class="btn btn-primary">Search</button>
+                    <!-- <button  >Search</button> -->
                 </div>
                 <hr>
+            
                 <div id="search-history" >
                     <!-- should be created with js -->
                     <!-- <button id="history-btn"></button> -->
                 </div>
             </div>
-            <div id="forecast-container" class="wrapall">
-                <div id="city-now" class="wrapall"></div>
-                <p>5-Day Forecast:</p>
-                <div id="day-1"></div>
-                <div id="day-2"></div>
-                <div id="day-3"></div>
-                <div id="day-4"></div>
-                <div id="day-5"></div>
+            
+            <div id="forecast-container" >
+               
+                <div id="city-now" ></div>
+               <h5 id="fiveDay-heading"></h5>
+                <div id="five-dayWrapperDiv"></div>
             </div>
 
         </div>
