@@ -20,11 +20,22 @@ header {
 #side-bar {
     margin: 1%;
 }
+#search-btn {
+    display: block;
+    width: 100%;
+    margin: 1% 0;
+}
+
+.search-size {
+    display: block;
+    width: 100%;
+    margin: 1% 0;
+}
 
 
 
 #search-div {
-    flex-wrap: wrap;
+    /* flex-wrap: wrap; */
     width: auto;
     height: fit-content;
     margin: 1%;
@@ -32,11 +43,16 @@ header {
 }
 
 #search-history {
-    flex-wrap: wrap;
-    width: auto;
-    border: solid red;
 
+   
+    width: 100%;
 
+}
+.historyBtn-size {
+    display: block;
+    width: 100%;
+    margin: 1% 0;
+    
 }
 
 #forecast-container {

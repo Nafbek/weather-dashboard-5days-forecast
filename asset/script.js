@@ -16,7 +16,7 @@ searchButton.addEventListener('click', function (event) {
     event.preventDefault()
 
     //
-    displayForecast()
+    displayForecast(city)
     saveHistory()
 
 })
@@ -25,7 +25,7 @@ searchButton.addEventListener('click', function (event) {
 
 //    
 
-function displayForecast() {
+function displayForecast(city) {
 
 
     console.log(userCity.value)
@@ -125,8 +125,50 @@ function displayForecast() {
 
 }
 
+
+
 function saveHistory() {
     console.log('save history function')
+var historyData = JSON.parse(localStorage.getItem('cities')) || []
+var city = userCity.value.trim()
+if (historyData.indexOf(city) === -1) {
+    historyData.push(city)
+}
+
+
+
+
+localStorage.setItem('cities', JSON.stringify(historyData))
+
+var historyDiv = document.getElementById('search-history')
+historyDiv.textContent = ''
+
+for (var i =0; i < historyData.length; i++){
+    var historyButton = document.createElement('button')
+    // var eachHistoryDiv = document.createElement('div')
+ 
+        historyButton.textContent = historyData[i]
+        // eachHistoryDiv.appendChild(historyButton)
+
+
+    
+
+    historyButton.addEventListener('click', function(){
+        var historyCity = this.textContent
+
+        userCity.value = historyCity
+        displayForecast()
+        saveHistory()
+       
+
+    })
+    historyButton.classList.add('historyBtn-size')
+    historyDiv.appendChild(historyButton)
+}
+
+
+
+
 
 
 }
