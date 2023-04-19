@@ -1,80 +1,70 @@
-/*  */
+/* Set the font family to the entire document */
 *{
     font-family: 'Times New Roman', Times, serif;
 }
-/*  */
+/* Set the padding of the heading 5 */
 #fiveDay-heading {
     padding-left: 2%;
 }
-/*  */
+/*Set to style the header  */
 header {
     background-color: aqua;
     text-align: center;
-   padding: 4%;
+    padding: 4%;
   
 }
-/*  */
+/*Set to affect the main container div  */
 #main-container {
-    /* width: 100%; */
     border: solid yellowgreen;
     display: flex;
     box-sizing: border-box;
 }
-/*  */
+/*Set the width of the search and history bar */
 #side-bar {
     margin: 1%;
+    width: 25%;
 }
-/*  */
+/*Affect the search button  */
 #search-btn {
     display: block;
     width: 100%;
     margin: 1% 0;
 }
-/*  */
-.search-size {
+/*Set the display and the size of the input field  */
+.search-size, .historyBtn-size{
     display: block;
     width: 100%;
     margin: 1% 0;
 }
-/*  */
+/* Set the width and height of the  first child div of the side bar */
 #search-div {
     width: auto;
     height: fit-content;
     margin: 1%;
     padding: 2%;
 }
-/*  */
-#search-history {
-    width: 100%;
-}
-/*  */
-.historyBtn-size {
-    display: block;
-    width: 100%;
-    margin: 1% 0;
-}
-/*  */
+/*Set the width of the content div  */
 #forecast-container {
     width: fit-content;
     width: 100%;
     margin-left: 1%;
 }
-/*  */
+/* Set the div that contains the five days forecast */
 #five-dayWrapperDiv {
     display: flex;
     flex-wrap:wrap;
     width: auto;
 }
-/*  */
+/*Set the font of the heading of the five days forecast */
 #search-heading{
     font-weight: bold;
 }
-/*  */
+/*Set the div that contains the current day forecast  */
 .size-todayDiv {
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
-    border-style: dotted ;
+    border-style: dotted;
     margin: 1%;
     padding-left: 1%;
     line-height: 1;

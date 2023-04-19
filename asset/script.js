@@ -1,8 +1,7 @@
-//Weather API key
+//Weather API key assignment to the variable
 var myKey = '34e81c1188d1e55fbd1d99bde32f6e18'
-var city;
 
-//Select DOM elements
+//Select DOM elements and define variable
 var searchButton = document.getElementById('search-btn')
 var userCity = document.querySelector('input[name ="city-input"]')
 // var cityNameDiv = $('#city-now') ???why not working
@@ -10,12 +9,13 @@ var cityNameDiv = document.getElementById('city-now')
 var forecstAllContainer = document.getElementById('forecast-container')
 var fivedayWrapperDiv = document.getElementById('five-dayWrapperDiv')
 var fiveDayHEl = document.getElementById('fiveDay-heading')
+var city;
 
 //Add event listener to the search button
 searchButton.addEventListener('click', function (event) {
     event.preventDefault()
 
-    //Clear the previously  displayed city weather forecast  
+//Clear the previously  displayed city weather forecast  
     cityNameDiv.innerHTML = ''
     fivedayWrapperDiv.innerHTML = ''
 
@@ -23,16 +23,33 @@ searchButton.addEventListener('click', function (event) {
     saveHistory()
 })
 
+//Add event listener for the keydown event for any submission
+document.addEventListener('keydown', function(event) {
+    
+    //Check if the key pressed is the enter key
+    if (event.key =='Enter') {
+        event.preventDefault()
+     
+//Clear the previously  displayed city weather forecast  
+    cityNameDiv.innerHTML = ''
+    fivedayWrapperDiv.innerHTML = ''
+
+    displayForecast()
+    saveHistory()
+    }
+})
+
 //Display the weather forecast 
 function displayForecast() {
     //Assign the value of the user to the city variable
     city = userCity.value;
 
-    //Fetch the weather forecast based on the user search
+    //Fetch the weather forecast data based on the user city search
     fetch('https://api.openweathermap.org/geo/1.0/direct?q=' + city + '&limit=1&appid=' + myKey)  //should i limit the number of cities with same name?
         .then(res => res.json())
         .then(data => {
-           //Create an element to hold the city name extracted from the data
+
+            //Create an element to hold the city name extracted from the data
             var cityNamePEl = document.createElement('p')
             cityNamePEl.textContent = data[0].name
             cityNameDiv.appendChild(cityNamePEl)
@@ -44,25 +61,27 @@ function displayForecast() {
             var lat = data[0].lat
             var lon = data[0].lon
 
-            //Fetch the weather forecast data for the given lacation coordinates
-            fetch('https://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + lon + '&appid=' + myKey + '&units=imperial')
+            //Fetch the current weather forecast data
+            fetch('https://api.openweathermap.org/data/2.5/weather?lat=' + lat + '&lon=' + lon + '&appid=' + myKey + '&units=imperial')
                 .then(res => res.json())
                 .then(data => {
+                    console.log(data)
                     //Create elements to hold today's weather value extracted from the data
                     var todayEl = document.createElement('span')
                     var todayIconEl = document.createElement('img')
                     var todayTempP = document.createElement('p')
                     var todayWindP = document.createElement('p')
                     var todayHumidityP = document.createElement('p')
+                   
+                    //var unixtimeStamp = data.dt
 
                     //Assign today's weather value extracted from the data to the variables created
-                    todayEl.textContent = ' (' + dayjs(data.list[0].dt_txt).format('M/DD/YYYY') + ')'
-                    todayIconEl.src = 'http://openweathermap.org/img/w/' + data.list[0].weather[0].icon + '.png';
-                    todayTempP.textContent = 'Temp: ' + data.list[0].main.temp + '°F'
-                    todayWindP.textContent = 'Wind: ' + data.list[0].wind.speed + 'MPH'
-                    todayHumidityP.textContent = 'Humidity: ' + data.list[0].main.humidity + ' %'
+                    todayEl.textContent = ' (' + dayjs(data.dt * (1000)).format('M/DD/YYYY') + ')'
+                    todayIconEl.src = 'https://openweathermap.org/img/w/' + data.weather[0].icon + '.png';
+                    todayTempP.textContent = 'Temp: ' + data.main.temp + '°F'
+                    todayWindP.textContent = 'Wind: ' + data.wind.speed + 'MPH'
+                    todayHumidityP.textContent = 'Humidity: ' + data.main.humidity + ' %'
 
-                    // var weatherNowDiv = document.createElement('div')
                     //Append the elements holding value to the parent element
                     cityNamePEl.appendChild(todayEl)
                     cityNameDiv.append(todayIconEl, todayTempP, todayWindP, todayHumidityP)
@@ -71,11 +90,19 @@ function displayForecast() {
                     cityNameDiv.classList.add('size-todayDiv')
                     todayIconEl.setAttribute('style', 'width: 30px; height:30px')
 
+                })
+
+            //Fetch the five day weather forecast data for the given lacation coordinates
+            fetch('https://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + lon + '&appid=' + myKey + '&units=imperial')
+                .then(res => res.json())
+                .then(data => {
+                    
                     //Write a heading to the five days forecast
                     fiveDayHEl.textContent = '5-Day Forecast:'
                     fiveDayHEl.setAttribute('style', 'font-weight: bold')
 
-                    for (var i = 1; i < data.list.length; i += 8) {
+                    //Iterate over the entire data to extract specific data values
+                    for (var i = 0; i < data.list.length; i += 8) {
 
                         //Create elements to hold the five days weather forecast
                         var dateEl = document.createElement('p')
@@ -85,24 +112,21 @@ function displayForecast() {
                         var humidityP = document.createElement('p')
 
                         //Assign the five days weather forecast values to the variables created
-                        dateEl.textContent = dayjs(data.list[i + 1].dt_txt).format('M/DD/YYYY')
-                        iconImgEl.src = 'http://openweathermap.org/img/w/' + data.list[i + 1].weather[0].icon + '.png';
-                        tempP.textContent = 'Temp: ' + data.list[i + 1].main.temp + '°F'
-                        windP.textContent = 'Wind: ' + data.list[i + 1].wind.speed + ' MPH'
-                        humidityP.textContent = 'Humidity: ' + data.list[i + 1].main.humidity + ' %'
+                        dateEl.textContent = dayjs(data.list[i].dt_txt).format('M/DD/YYYY')
+                        console.log(dateEl.textContent)
+                        iconImgEl.src = 'https://openweathermap.org/img/w/' + data.list[i].weather[0].icon + '.png';
+                        tempP.textContent = 'Temp: ' + data.list[i].main.temp + '°F'
+                        windP.textContent = 'Wind: ' + data.list[i].wind.speed + ' MPH'
+                        humidityP.textContent = 'Humidity: ' + data.list[i].main.humidity + ' %'
 
                         var eachForecastDiv = document.createElement('div')
                         fivedayWrapperDiv.appendChild(eachForecastDiv)
-
-                        // fivedayWrapperDiv.setAttribute('style', 'border: solid')
-
-                        // forecstAllContainer.appendChild(eachForecastDiv)
 
                         //Append elements created to the parent element
                         eachForecastDiv.append(dateEl, iconImgEl, tempP, windP, humidityP)
 
                         //Style each day div elements
-                        eachForecastDiv.setAttribute('style', 'border: solid; margin: 1%;  background-color: gray; color: white; padding: 0 1%; ')
+                        eachForecastDiv.setAttribute('style', 'border: solid; margin: 1%;  background-color: rgb(4, 4, 43); color: white; padding: 0 1%; ')
                         iconImgEl.setAttribute('style', 'width: 30px; height:30px')
 
                         //Add class to each day div element
@@ -144,7 +168,7 @@ function saveHistory() {
             userCity.value = historyCity
 
             cityNameDiv.innerHTML = ''
-            fivedayWrapperDiv.innerHTML =''
+            fivedayWrapperDiv.innerHTML = ''
             //Call a function that display the weather forecast
             displayForecast()
 
