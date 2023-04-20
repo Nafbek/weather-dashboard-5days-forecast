@@ -36,12 +36,14 @@ You can clone this particular repository (follow this link  https://github.com/N
 
 Open the 'index.html' file in your preferred browser, and type any city you would like to know its five day weather forecast in the search input field. You can either click the search button or hit the 'enter' key from keyboard to get the desired result of weather condition. Next time, if you are looking for the weather forecast of the city you previously searched in your browser, you can simply click on your search history button(s) listed right below the main search button. Your search history will also be stored in the local storage which allows you to access it any time after closing your browser.
 
- Optionally, check the deployed application here https://nafbek.github.io/work-day-scheduler/ 
+ Optionally, check the deployed application here https://nafbek.github.io/weather-dashboard-5days-forecast/ 
 
 
 You can either double click on the file "Animation.gif" in the repository or on the follwing syntax link to view the animation of the animation that demonstrate the functionality of the application.
 
-![alt text](Animation.gif)
+
+![alt-text](Animationweather.gif)
+
 
 
 ## Credits
