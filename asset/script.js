@@ -65,7 +65,7 @@ function displayForecast() {
             fetch('https://api.openweathermap.org/data/2.5/weather?lat=' + lat + '&lon=' + lon + '&appid=' + myKey + '&units=imperial')
                 .then(res => res.json())
                 .then(data => {
-                    console.log(data)
+                    
                     //Create elements to hold today's weather value extracted from the data
                     var todayEl = document.createElement('span')
                     var todayIconEl = document.createElement('img')
@@ -113,7 +113,6 @@ function displayForecast() {
 
                         //Assign the five days weather forecast values to the variables created
                         dateEl.textContent = dayjs(data.list[i].dt_txt).format('M/DD/YYYY')
-                        console.log(dateEl.textContent)
                         iconImgEl.src = 'https://openweathermap.org/img/w/' + data.list[i].weather[0].icon + '.png';
                         tempP.textContent = 'Temp: ' + data.list[i].main.temp + '°F'
                         windP.textContent = 'Wind: ' + data.list[i].wind.speed + ' MPH'
